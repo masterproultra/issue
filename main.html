@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Join BlackArrow</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      emailjs.init("GuV3cT8lTfVvwKEvs"); // Your Public Key
-    });
-  </script>
   <style>
     body {
       background: #0b0f1a;
       color: white;
       font-family: Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+      text-align: center;
+      padding: 40px 20px;
       margin: 0;
-      padding: 20px;
     }
 
     .glow-box {
       background: #111;
-      padding: 40px 30px;
+      padding: 30px 20px;
       border-radius: 16px;
       box-shadow: 0 0 20px #00e3d8;
-      width: 100%;
       max-width: 400px;
-      box-sizing: border-box;
-      text-align: center;
+      margin: auto;
     }
 
     h2 {
@@ -44,21 +33,25 @@
       margin: 10px 0;
       border-radius: 8px;
       border: none;
+      font-size: 16px;
       box-sizing: border-box;
+    }
+
+    input {
+      background: #222;
+      color: white;
     }
 
     button {
       background-color: #00e3d8;
       font-weight: bold;
-      cursor: pointer;
       color: #000;
+      cursor: pointer;
+      transition: background 0.3s ease;
     }
 
-    #success-message {
-      color: #00e3d8;
-      margin-top: 20px;
-      font-weight: bold;
-      display: none;
+    button:hover {
+      background-color: #00c2b6;
     }
   </style>
 </head>
@@ -71,26 +64,118 @@
       <input type="email" name="user_email" placeholder="Your Email" required />
       <button type="submit">Get Started</button>
     </form>
-    <div id="success-message">Thanks! We've received your info.</div>
   </div>
 
-  <script>
-    const form = document.getElementById("join-form");
-    const successMessage = document.getElementById("success-message");
+  <script type="module">
+    import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
 
-    form.addEventListener("submit", function (event) {
+    emailjs.init("GuV3cT8lTfVvwKEvs"); // Your public key
+
+    document.getElementById("join-form").addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const name = form.user_name.value;
-      const email = form.user_email.value;
+      const name = this.user_name.value;
+      const email = this.user_email.value;
 
       emailjs.send("service_vbxob4c", "template_ot1izq8", {
         user_name: name,
         user_email: email,
-      }).then(function () {
-        successMessage.style.display = "block";
-        form.reset();
-      }, function (error) {
+      }).then(() => {
+        alert("Email sent successfully!");
+        this.reset();
+      }, (error) => {
+        alert("Failed to send email: " + JSON.stringify(error));
+      });
+    });
+  </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join BlackArrow</title>
+  <style>
+    body {
+      background: #0b0f1a;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+      margin: 0;
+    }
+
+    .glow-box {
+      background: #111;
+      padding: 30px 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #00e3d8;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 12px;
+      width: 100%;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    input {
+      background: #222;
+      color: white;
+    }
+
+    button {
+      background-color: #00e3d8;
+      font-weight: bold;
+      color: #000;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00c2b6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-box">
+    <h2>Join BlackArrow</h2>
+    <form id="join-form">
+      <input type="text" name="user_name" placeholder="Your Name" required />
+      <input type="email" name="user_email" placeholder="Your Email" required />
+      <button type="submit">Get Started</button>
+    </form>
+  </div>
+
+  <script type="module">
+    import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+
+    emailjs.init("GuV3cT8lTfVvwKEvs"); // Your public key
+
+    document.getElementById("join-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const name = this.user_name.value;
+      const email = this.user_email.value;
+
+      emailjs.send("service_vbxob4c", "template_ot1izq8", {
+        user_name: name,
+        user_email: email,
+      }).then(() => {
+        alert("Email sent successfully!");
+        this.reset();
+      }, (error) => {
         alert("Failed to send email: " + JSON.stringify(error));
       });
     });
