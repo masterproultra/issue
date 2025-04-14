@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Join BlackArrow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      emailjs.init("GuV3cT8lTfVvwKEvs"); // Your Public Key
+    });
+  </script>
+  <style>
+    body {
+      background: #0b0f1a;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .glow-box {
+      background: #111;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #00e3d8;
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 12px;
+      width: 100%;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #00e3d8;
+      font-weight: bold;
+      cursor: pointer;
+      color: #000;
+    }
+
+    #success-message {
+      color: #00e3d8;
+      margin-top: 20px;
+      font-weight: bold;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-box">
+    <h2>Join BlackArrow</h2>
+    <form id="join-form">
+      <input type="text" name="user_name" placeholder="Your Name" required />
+      <input type="email" name="user_email" placeholder="Your Email" required />
+      <button type="submit">Get Started</button>
+    </form>
+    <div id="success-message">Thanks! We've received your info.</div>
+  </div>
+
+  <script>
+    const form = document.getElementById("join-form");
+    const successMessage = document.getElementById("success-message");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const name = form.user_name.value;
+      const email = form.user_email.value;
+
+      emailjs.send("service_vbxob4c", "template_ot1izq8", {
+        user_name: name,
+        user_email: email,
+      }).then(function () {
+        successMessage.style.display = "block";
+        form.reset();
+      }, function (error) {
+        alert("Failed to send email: " + JSON.stringify(error));
+      });
+    });
+  </script>
+
+</body>
+</html>
